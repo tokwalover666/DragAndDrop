@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Vector2 movementInput;
+
     private CharacterController _cc;
+
     [SerializeField] float playerSpeed;
+    [SerializeField] float mouseSensitivity;
 
     public Transform player;
-    [SerializeField] float mouseSensitivity;
+
     float cameraVerticalRotation = 0f;
 
     bool lockedCursor = true;
@@ -44,20 +47,16 @@ public class PlayerController : MonoBehaviour
         transform.localEulerAngles = new Vector3(cameraVerticalRotation, transform.localEulerAngles.y, 0f);
 
         cursor();
-
-
     }
 
     void cursor()
     {
         if (Cursor.lockState == CursorLockMode.None && lockedCursor)
         {
-            // If it's unlocked and we want it locked, lock it again
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
-        // Check for user input to unlock the cursor
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;

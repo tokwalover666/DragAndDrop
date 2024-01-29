@@ -10,30 +10,32 @@ public class DragAndDrop : MonoBehaviour
     [SerializeField] private LayerMask pickUpLM;
 
     private ObjectGrabbable objGrabbable;
-    
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetMouseButtonDown(0))
         {
-            if (objGrabbable == null )
+            if (objGrabbable == null)
             {
-                float pickUpDistance = 2f;
-                if (Physics.Raycast(sceneCamera.position, sceneCamera.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLM))
+                float pickUpDistance1 = 2f;
+                
+                if (Physics.Raycast(sceneCamera.position, sceneCamera.forward, out RaycastHit rraycastHit, pickUpDistance1, pickUpLM))
                 {
-                    ///Debug.Log(raycastHit.transform);
-                    if (raycastHit.transform.TryGetComponent(out objGrabbable))
+                    if (rraycastHit.transform.TryGetComponent(out objGrabbable))
                     {
                         objGrabbable.Grab(objectGrabPointTransform);
                         Debug.Log(objGrabbable);
                     }
                 }
-            } else
+            }
+            else
             {
                 objGrabbable.Drop();
                 objGrabbable = null;
             }
-
         }
     }
+
+
 }
